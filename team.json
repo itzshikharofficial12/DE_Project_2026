@@ -1,0 +1,11 @@
+{
+  "team_number": "T0060",
+  "group_lead": { "name": "Mehak Sharma", "enrollment_no": "2501010274", "github": "mehaksharma25" },
+  "members": [
+    { "name": "Ocean Kumar", "enrollment_no": "2501010310", "github": "oceankumar" },
+    { "name": "Shikhar Srivastava", "enrollment_no": "2501010647", "github": "itzshikharofficial12" },
+    { "name": "Jashanpreet Singh", "enrollment_no": "2501010200", "github": "i-jashanpreet" }
+  ],
+  "postgres_version": "",
+  "laptop_used_for_benchmarks": ""
+}
