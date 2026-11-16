@@ -1,0 +1,113 @@
+erDiagram
+    TEAMS ||--o{ PLAYERS : "has squad (1:N)"
+    TEAMS ||--o{ MATCHES : "hosts as home_team (1:N)"
+    TEAMS ||--o{ MATCHES : "visits as away_team (1:N)"
+    MATCHES ||--o{ PLAYER_MATCH_STATS : "records scorecard (1:N)"
+    PLAYERS ||--o{ PLAYER_MATCH_STATS : "performs in (1:N)"
+    USERS ||--o{ USER_TEAMS : "creates (1:N)"
+    MATCHES ||--o{ USER_TEAMS : "for fixture (1:N)"
+    PLAYERS ||--o{ USER_TEAMS : "designated captain (1:N)"
+    PLAYERS ||--o{ USER_TEAMS : "designated vice_captain (1:N)"
+    USER_TEAMS ||--|{ USER_TEAM_PLAYERS : "contains roster (1:N)"
+    PLAYERS ||--o{ USER_TEAM_PLAYERS : "selected in (1:N)"
+    MATCHES ||--o{ CONTESTS : "offers (1:N)"
+    CONTESTS ||--o{ CONTEST_ENTRIES : "receives entries (1:N)"
+    USER_TEAMS ||--o{ CONTEST_ENTRIES : "enters via (1:N)"
+    USERS ||--o{ WALLET_TRANSACTIONS : "owns ledger (1:N)"
+    CONTEST_ENTRIES o|--o{ WALLET_TRANSACTIONS : "referenced by (0..1:N)"
+
+    TEAMS {
+        INTEGER team_id PK "NOT NULL"
+        VARCHAR(100) team_name UK "NOT NULL"
+        VARCHAR(10) short_name UK "NOT NULL, CHECK ^[A-Z]{2,5}$"
+        VARCHAR(20) team_type "NOT NULL, CHECK FRANCHISE|INTERNATIONAL"
+    }
+
+    PLAYERS {
+        INTEGER player_id PK "NOT NULL"
+        VARCHAR(120) full_name "NOT NULL"
+        INTEGER team_id FK "NOT NULL -> teams.team_id (RESTRICT)"
+        VARCHAR(10) role "NOT NULL, CHECK WK|BAT|AR|BOWL"
+        NUMERIC(4_1) credits "NOT NULL, CHECK 5.0..15.0"
+        BOOLEAN is_active "NOT NULL"
+    }
+
+    MATCHES {
+        INTEGER match_id PK "NOT NULL"
+        VARCHAR(80) tournament "NOT NULL"
+        INTEGER home_team_id FK "NOT NULL -> teams.team_id (RESTRICT)"
+        INTEGER away_team_id FK "NOT NULL -> teams.team_id (RESTRICT), CHECK <> home_team_id"
+        VARCHAR(150) venue "NOT NULL"
+        TIMESTAMPTZ starts_at "NOT NULL"
+        VARCHAR(20) status "NOT NULL, CHECK UPCOMING|LIVE|COMPLETED|ABANDONED"
+    }
+
+    PLAYER_MATCH_STATS {
+        INTEGER match_id PK,FK "NOT NULL -> matches.match_id (CASCADE)"
+        INTEGER player_id PK,FK "NOT NULL -> players.player_id (RESTRICT)"
+        SMALLINT runs "NOT NULL, CHECK >= 0"
+        SMALLINT balls_faced "NOT NULL, CHECK >= 0"
+        SMALLINT fours "NOT NULL, CHECK >= 0"
+        SMALLINT sixes "NOT NULL, CHECK >= 0"
+        SMALLINT wickets "NOT NULL, CHECK 0..10"
+        SMALLINT catches "NOT NULL, CHECK >= 0"
+        NUMERIC(6_1) fantasy_points "NOT NULL"
+    }
+
+    USERS {
+        INTEGER user_id PK "NOT NULL"
+        VARCHAR(50) username UK "NOT NULL, CHECK ^[A-Za-z0-9_]+$"
+        CHAR(10) phone UK "NOT NULL, CHECK ^[0-9]{10}$"
+        VARCHAR(254) email UK "NULLABLE"
+        CHAR(2) state_code "NOT NULL, CHECK ^[A-Z]{2}$"
+        VARCHAR(20) kyc_status "NOT NULL, CHECK PENDING|VERIFIED|REJECTED"
+        TIMESTAMPTZ created_at "NOT NULL"
+    }
+
+    USER_TEAMS {
+        INTEGER user_team_id PK "NOT NULL"
+        INTEGER user_id FK "NOT NULL -> users.user_id (RESTRICT), UK(user_id,match_id,team_label)"
+        INTEGER match_id FK "NOT NULL -> matches.match_id (RESTRICT)"
+        VARCHAR(10) team_label "NOT NULL, CHECK ^T[1-9][0-9]*$"
+        INTEGER captain_id FK "NOT NULL -> players.player_id (RESTRICT)"
+        INTEGER vice_captain_id FK "NOT NULL -> players.player_id (RESTRICT), CHECK <> captain_id"
+        NUMERIC(7_1) total_points "NULLABLE"
+        TIMESTAMPTZ created_at "NOT NULL"
+    }
+
+    USER_TEAM_PLAYERS {
+        INTEGER user_team_id PK,FK "NOT NULL -> user_teams.user_team_id (CASCADE)"
+        INTEGER player_id PK,FK "NOT NULL -> players.player_id (RESTRICT)"
+    }
+
+    CONTESTS {
+        INTEGER contest_id PK "NOT NULL"
+        INTEGER match_id FK "NOT NULL -> matches.match_id (RESTRICT)"
+        VARCHAR(120) contest_name "NOT NULL"
+        VARCHAR(20) contest_type "NOT NULL, CHECK MEGA|SMALL|HEAD_TO_HEAD|PRIVATE"
+        NUMERIC(10_2) entry_fee "NOT NULL, CHECK >= 0"
+        INTEGER total_spots "NOT NULL, CHECK >= 2 (H2H = 2)"
+        NUMERIC(12_2) prize_pool "NOT NULL, CHECK >= 0"
+        BOOLEAN is_guaranteed "NOT NULL"
+        VARCHAR(20) invite_code UK "NULLABLE, CHECK PRIVATE <-> NOT NULL"
+    }
+
+    CONTEST_ENTRIES {
+        INTEGER entry_id PK "NOT NULL"
+        INTEGER contest_id FK "NOT NULL -> contests.contest_id (RESTRICT), UK(contest_id,user_team_id)"
+        INTEGER user_team_id FK "NOT NULL -> user_teams.user_team_id (RESTRICT)"
+        TIMESTAMPTZ joined_at "NOT NULL"
+        INTEGER final_rank "NULLABLE, CHECK >= 1"
+        NUMERIC(12_2) winnings "NOT NULL DEFAULT 0.00, CHECK >= 0"
+    }
+
+    WALLET_TRANSACTIONS {
+        INTEGER txn_id PK "NOT NULL"
+        INTEGER user_id FK "NOT NULL -> users.user_id (RESTRICT)"
+        VARCHAR(20) txn_type "NOT NULL, CHECK DEPOSIT|ENTRY_FEE|WINNINGS|REFUND|BONUS|WITHDRAWAL"
+        NUMERIC(12_2) amount "NOT NULL, CHECK > 0"
+        INTEGER reference_entry_id FK "NULLABLE -> contest_entries.entry_id (RESTRICT)"
+        VARCHAR(20) status "NOT NULL, CHECK SUCCESS|PENDING|FAILED"
+        TIMESTAMPTZ created_at "NOT NULL"
+    }
+

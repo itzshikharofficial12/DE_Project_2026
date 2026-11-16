@@ -1,0 +1,7 @@
+
+# Dataset files - do not commit
+seed_data/
+large_data/
+
+# macOS
+.DS_Store
