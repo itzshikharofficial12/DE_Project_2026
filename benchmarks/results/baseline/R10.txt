@@ -1,0 +1,39 @@
+=== R10 run 1 ===
+Sort  (cost=3463.03..3463.05 rows=10 width=21) (actual time=7.689..7.694 rows=100 loops=1)
+  Sort Key: created_at
+  Sort Method: quicksort  Memory: 28kB
+  Buffers: shared hit=1099
+  ->  Seq Scan on wallet_transactions  (cost=0.00..3462.86 rows=10 width=21) (actual time=7.513..7.677 rows=100 loops=1)
+        Filter: (((txn_type)::text = 'WITHDRAWAL'::text) AND ((status)::text = 'PENDING'::text) AND (created_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '24:00:00'::interval)))
+        Rows Removed by Filter: 118243
+        Buffers: shared hit=1096
+Planning:
+  Buffers: shared hit=94
+Planning Time: 0.176 ms
+Execution Time: 7.704 ms
+=== R10 run 2 ===
+Sort  (cost=3463.03..3463.05 rows=10 width=21) (actual time=7.334..7.339 rows=100 loops=1)
+  Sort Key: created_at
+  Sort Method: quicksort  Memory: 28kB
+  Buffers: shared hit=1099
+  ->  Seq Scan on wallet_transactions  (cost=0.00..3462.86 rows=10 width=21) (actual time=7.061..7.316 rows=100 loops=1)
+        Filter: (((txn_type)::text = 'WITHDRAWAL'::text) AND ((status)::text = 'PENDING'::text) AND (created_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '24:00:00'::interval)))
+        Rows Removed by Filter: 118243
+        Buffers: shared hit=1096
+Planning:
+  Buffers: shared hit=94
+Planning Time: 0.152 ms
+Execution Time: 7.352 ms
+=== R10 run 3 ===
+Sort  (cost=3463.03..3463.05 rows=10 width=21) (actual time=8.483..8.488 rows=100 loops=1)
+  Sort Key: created_at
+  Sort Method: quicksort  Memory: 28kB
+  Buffers: shared hit=1099
+  ->  Seq Scan on wallet_transactions  (cost=0.00..3462.86 rows=10 width=21) (actual time=8.228..8.468 rows=100 loops=1)
+        Filter: (((txn_type)::text = 'WITHDRAWAL'::text) AND ((status)::text = 'PENDING'::text) AND (created_at < ('2026-06-30 23:59:00+05:30'::timestamp with time zone - '24:00:00'::interval)))
+        Rows Removed by Filter: 118243
+        Buffers: shared hit=1096
+Planning:
+  Buffers: shared hit=94
+Planning Time: 0.144 ms
+Execution Time: 8.499 ms

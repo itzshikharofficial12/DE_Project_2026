@@ -1,0 +1,31 @@
+query_id,type,run_1_ms,run_2_ms,run_3_ms,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R01,READ,0.790,1.142,1.096,1.009,1.096,0.790,1.142,Seq Scan on contests | Seq Scan on matches | Seq Scan on teams
+R02,READ,56.508,33.284,27.999,39.264,33.284,27.999,56.508,Seq Scan on user_teams | Index Only Scan using pk_user_team_players on user_team_players | Seq Scan on matches | Seq Scan on players | Seq Scan on teams
+R03,READ,0.043,0.033,0.036,0.037,0.036,0.033,0.043,Index Scan using uq_user_teams_user_match_label on user_teams | Index Scan using pk_players on players
+R04,READ,0.192,0.175,0.181,0.183,0.181,0.175,0.192,Seq Scan on contests | Index Scan using uq_contest_entries_contest_team on contest_entries
+R05,READ,0.664,0.363,0.384,0.470,0.384,0.363,0.664,Index Only Scan using uq_contest_entries_contest_team on contest_entries | Index Scan using pk_user_teams on user_teams | Index Scan using pk_users on users
+R06,READ,65.143,45.949,45.969,52.354,45.969,45.949,65.143,Seq Scan on user_teams | Index Only Scan using pk_user_team_players on user_team_players | Seq Scan on players
+R07,READ,0.079,0.073,0.082,0.078,0.079,0.073,0.082,Index Scan using uq_user_teams_user_match_label on user_teams | Index Only Scan using pk_user_team_players on user_team_players | Index Scan using pk_players on players | Index Scan using pk_player_match_stats on player_match_stats
+R08,READ,1.551,1.845,1.909,1.768,1.845,1.551,1.909,Seq Scan on user_teams | Seq Scan on players
+R09,READ,6.520,5.078,5.234,5.611,5.234,5.078,6.520,Seq Scan on wallet_transactions
+R10,READ,7.704,7.352,8.499,7.852,7.704,7.352,8.499,Seq Scan on wallet_transactions
+R11,READ,19.491,18.258,15.571,17.773,18.258,15.571,19.491,Seq Scan on contest_entries | Seq Scan on user_teams | Seq Scan on users | Seq Scan on contests
+R12,READ,1.194,0.991,1.166,1.117,1.166,0.991,1.194,Seq Scan on player_match_stats | Seq Scan on matches | Seq Scan on players | Seq Scan on teams
+R13,READ,19.911,17.880,16.735,18.175,17.880,16.735,19.911,Seq Scan on contest_entries | Seq Scan on wallet_transactions | Seq Scan on contests
+R14,READ,11.143,10.655,10.436,10.745,10.655,10.436,11.143,Seq Scan on contests | Seq Scan on matches | Index Scan using uq_contest_entries_contest_team on contest_entries
+R15,READ,20.785,19.493,19.317,19.865,19.493,19.317,20.785,Seq Scan on contest_entries | Seq Scan on user_teams | Seq Scan on users
+R16,READ,0.137,0.141,0.124,0.134,0.137,0.124,0.141,Seq Scan on players | Seq Scan on teams
+R17,READ,15.392,14.506,13.765,14.554,14.506,13.765,15.392,Seq Scan on contest_entries | Seq Scan on user_teams
+R18,READ,10.096,10.501,10.115,10.237,10.115,10.096,10.501,Seq Scan on wallet_transactions | Seq Scan on users
+R19,READ,2256.470,2165.497,2149.087,2190.351,2165.497,2149.087,2256.470,Seq Scan on players | Seq Scan on teams | Seq Scan on user_team_players
+R20,READ,6.767,6.474,6.453,6.565,6.474,6.453,6.767,Seq Scan on wallet_transactions
+R21,READ,6.669,6.510,6.699,6.626,6.669,6.510,6.699,Seq Scan on user_teams | Seq Scan on contest_entries | Seq Scan on contests
+R22,READ,26.734,28.069,24.763,26.522,26.734,24.763,28.069,Seq Scan on wallet_transactions
+R23,READ,0.035,0.027,0.025,0.029,0.027,0.025,0.035,Index Scan using uq_users_phone on users
+R24,READ,0.632,0.483,0.590,0.568,0.590,0.483,0.632,Seq Scan on player_match_stats | Seq Scan on players | Seq Scan on teams | Seq Scan on matches
+R25,READ,9.655,8.854,8.818,9.109,8.854,8.818,9.655,Seq Scan on wallet_transactions | Seq Scan on contest_entries | Seq Scan on user_teams | Seq Scan on matches | Seq Scan on contests
+W01,WRITE,0.641,0.423,1.011,0.692,0.641,0.423,1.011,Seq Scan on matches
+W02,WRITE,0.878,1.020,1.988,1.295,1.020,0.878,1.988,Index Scan using pk_user_teams on user_teams | Seq Scan on contests
+W03,WRITE,1.134,1.709,0.940,1.261,1.134,0.940,1.709,Index Only Scan using pk_contest_entries on contest_entries | Index Scan using pk_contest_entries on contest_entries | Index Scan using pk_contests on contests | Index Scan using pk_user_teams on user_teams
+W04,WRITE,18.693,12.372,9.186,13.417,12.372,9.186,18.693,Seq Scan on user_teams | Index Only Scan using pk_user_team_players on user_team_players | Bitmap Heap Scan on player_match_stats | Bitmap Index Scan on pk_player_match_stats
+W05,WRITE,12.222,9.958,10.162,10.781,10.162,9.958,12.222,Seq Scan on wallet_transactions

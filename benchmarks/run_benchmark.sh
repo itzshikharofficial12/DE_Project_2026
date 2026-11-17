@@ -20,7 +20,7 @@ WORKLOAD="${4:-$ROOT/queries/workload_30.sql}"
 OUT="$ROOT/benchmarks/results/$PHASE"
 SUMMARY="$OUT/summary.csv"
 mkdir -p "$OUT"
-echo "query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes" > "$SUMMARY"
+echo "query_id,type,run_1_ms,run_2_ms,run_3_ms,avg_ms,median_ms,min_ms,max_ms,scan_nodes" > "$SUMMARY"
 
 # Split the workload file on "-- @ID" markers into one temp file per query
 TMP="$(mktemp -d)"
@@ -54,7 +54,7 @@ for f in $(ls "$TMP"/*.sql | sort -V); do
   node="$(echo "$plan" | grep -oE '(Parallel )?(Seq Scan|Index Scan|Index Only Scan|Bitmap Heap Scan|Bitmap Index Scan)( Backward)?( using [a-z0-9_]+)? on [a-z0-9_]+' | sed -E 's/Parallel //; s/ Backward//' | awk '!seen[$0]++' | paste -sd'|' - | sed 's/|/ | /g' || true)"
   # grep exits 1 when nothing matches (e.g. a plain INSERT); don't let set -e abort the run
   node="${node:-(no scan)}"
-  echo "$id,$type,$avg,$median,${sorted[0]},${sorted[$((RUNS - 1))]},$node" >> "$SUMMARY"
+  echo "$id,$type,${times[0]:-},${times[1]:-},${times[2]:-},$avg,$median,${sorted[0]},${sorted[$((RUNS - 1))]},$node" >> "$SUMMARY"
   printf '%-4s %-5s avg %9s ms   %s\n' "$id" "$type" "$avg" "$node"
 done
 rm -rf "$TMP"
