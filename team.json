@@ -6,6 +6,6 @@
     { "name": "Shikhar Srivastava", "enrollment_no": "2501010647", "github": "itzshikharofficial12" },
     { "name": "Jashanpreet Singh", "enrollment_no": "2501010200", "github": "i-jashanpreet" }
   ],
-  "postgres_version": "",
-  "laptop_used_for_benchmarks": ""
+  "postgres_version": "PostgreSQL 18.6 (Postgres.app) on aarch64-apple-darwin23.6.0, 64-bit",
+  "laptop_used_for_benchmarks": "Apple MacBook Pro (14-inch, M4, Mac16,1), 16 GB Unified Memory, 10-core CPU (4P + 6E), macOS Sequoia 27.2"
 }

@@ -12,11 +12,20 @@
 # WRITE queries (W*) run inside BEGIN ... ROLLBACK, so your data does not change.
 set -euo pipefail
 
+# Ensure psql is in PATH
+export PATH="/Applications/Postgres.app/Contents/Versions/18/bin:/Users/mehaksharma/.gemini/antigravity/bin:$PATH"
+
 DB="${1:?database name required}"
 PHASE="${2:?phase required: before | after}"
 RUNS="${3:-3}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-WORKLOAD="${4:-$ROOT/queries/workload_30.sql}"
+if [[ -n "${4:-}" ]]; then
+  WORKLOAD="$4"
+elif [[ ("$PHASE" == "optimized" || "$PHASE" == "after" || "$PHASE" == "large") && -f "$ROOT/sql/06_optimized_queries.sql" ]]; then
+  WORKLOAD="$ROOT/sql/06_optimized_queries.sql"
+else
+  WORKLOAD="$ROOT/queries/workload_30.sql"
+fi
 OUT="$ROOT/benchmarks/results/$PHASE"
 SUMMARY="$OUT/summary.csv"
 mkdir -p "$OUT"

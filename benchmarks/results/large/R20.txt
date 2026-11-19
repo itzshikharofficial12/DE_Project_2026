@@ -1,0 +1,66 @@
+=== R20 run 1 ===
+WindowAgg  (cost=404.26..487.97 rows=2231 width=68) (actual time=1.174..1.292 rows=28.00 loops=1)
+  Window: w1 AS (ORDER BY ((wallet_transactions.created_at)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=74 read=17
+  ->  GroupAggregate  (cost=404.22..454.50 rows=2231 width=36) (actual time=1.165..1.280 rows=28.00 loops=1)
+        Group Key: ((wallet_transactions.created_at)::date)
+        Buffers: shared hit=74 read=17
+        ->  Sort  (cost=404.22..409.83 rows=2242 width=9) (actual time=1.152..1.187 rows=2085.00 loops=1)
+              Sort Key: ((wallet_transactions.created_at)::date)
+              Sort Method: quicksort  Memory: 162kB
+              Buffers: shared hit=74 read=17
+              ->  Index Scan using idx_wallet_transactions_created_at_desc on wallet_transactions  (cost=0.42..279.45 rows=2242 width=9) (actual time=0.371..1.069 rows=2085.00 loops=1)
+                    Index Cond: ((created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Filter: (((txn_type)::text = 'DEPOSIT'::text) AND ((status)::text = 'SUCCESS'::text))
+                    Rows Removed by Filter: 4012
+                    Index Searches: 1
+                    Buffers: shared hit=71 read=17
+Planning:
+  Buffers: shared hit=245
+Planning Time: 0.445 ms
+Execution Time: 1.318 ms
+=== R20 run 2 ===
+WindowAgg  (cost=404.26..487.97 rows=2231 width=68) (actual time=0.574..0.689 rows=28.00 loops=1)
+  Window: w1 AS (ORDER BY ((wallet_transactions.created_at)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=91
+  ->  GroupAggregate  (cost=404.22..454.50 rows=2231 width=36) (actual time=0.566..0.678 rows=28.00 loops=1)
+        Group Key: ((wallet_transactions.created_at)::date)
+        Buffers: shared hit=91
+        ->  Sort  (cost=404.22..409.83 rows=2242 width=9) (actual time=0.555..0.590 rows=2085.00 loops=1)
+              Sort Key: ((wallet_transactions.created_at)::date)
+              Sort Method: quicksort  Memory: 162kB
+              Buffers: shared hit=91
+              ->  Index Scan using idx_wallet_transactions_created_at_desc on wallet_transactions  (cost=0.42..279.45 rows=2242 width=9) (actual time=0.032..0.477 rows=2085.00 loops=1)
+                    Index Cond: ((created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Filter: (((txn_type)::text = 'DEPOSIT'::text) AND ((status)::text = 'SUCCESS'::text))
+                    Rows Removed by Filter: 4012
+                    Index Searches: 1
+                    Buffers: shared hit=88
+Planning:
+  Buffers: shared hit=245
+Planning Time: 0.396 ms
+Execution Time: 0.715 ms
+=== R20 run 3 ===
+WindowAgg  (cost=404.26..487.97 rows=2231 width=68) (actual time=0.586..0.702 rows=28.00 loops=1)
+  Window: w1 AS (ORDER BY ((wallet_transactions.created_at)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=91
+  ->  GroupAggregate  (cost=404.22..454.50 rows=2231 width=36) (actual time=0.577..0.689 rows=28.00 loops=1)
+        Group Key: ((wallet_transactions.created_at)::date)
+        Buffers: shared hit=91
+        ->  Sort  (cost=404.22..409.83 rows=2242 width=9) (actual time=0.564..0.599 rows=2085.00 loops=1)
+              Sort Key: ((wallet_transactions.created_at)::date)
+              Sort Method: quicksort  Memory: 162kB
+              Buffers: shared hit=91
+              ->  Index Scan using idx_wallet_transactions_created_at_desc on wallet_transactions  (cost=0.42..279.45 rows=2242 width=9) (actual time=0.034..0.483 rows=2085.00 loops=1)
+                    Index Cond: ((created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Filter: (((txn_type)::text = 'DEPOSIT'::text) AND ((status)::text = 'SUCCESS'::text))
+                    Rows Removed by Filter: 4012
+                    Index Searches: 1
+                    Buffers: shared hit=88
+Planning:
+  Buffers: shared hit=245
+Planning Time: 0.438 ms
+Execution Time: 0.731 ms

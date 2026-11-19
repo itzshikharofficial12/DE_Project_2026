@@ -1,0 +1,93 @@
+=== R08 run 1 ===
+Limit  (cost=361.49..361.52 rows=10 width=20) (actual time=0.267..0.268 rows=10.00 loops=1)
+  Buffers: shared hit=184
+  ->  Sort  (cost=361.49..362.14 rows=260 width=20) (actual time=0.267..0.268 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=184
+        ->  HashAggregate  (cost=353.27..355.87 rows=260 width=20) (actual time=0.255..0.257 rows=22.00 loops=1)
+              Group Key: p.full_name
+              Batches: 1  Memory Usage: 48kB
+              Buffers: shared hit=181
+              ->  Hash Join  (cost=20.43..351.97 rows=260 width=12) (actual time=0.068..0.235 rows=255.00 loops=1)
+                    Hash Cond: (ut.captain_id = p.player_id)
+                    Buffers: shared hit=181
+                    ->  Bitmap Heap Scan on user_teams ut  (cost=6.31..337.16 rows=260 width=4) (actual time=0.025..0.174 rows=255.00 loops=1)
+                          Recheck Cond: (match_id = 207)
+                          Heap Blocks: exact=174
+                          Buffers: shared hit=177
+                          ->  Bitmap Index Scan on idx_user_teams_match_id  (cost=0.00..6.24 rows=260 width=0) (actual time=0.014..0.014 rows=255.00 loops=1)
+                                Index Cond: (match_id = 207)
+                                Index Searches: 1
+                                Buffers: shared hit=3
+                    ->  Hash  (cost=8.50..8.50 rows=450 width=16) (actual time=0.039..0.039 rows=450.00 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 30kB
+                          Buffers: shared hit=4
+                          ->  Seq Scan on players p  (cost=0.00..8.50 rows=450 width=16) (actual time=0.002..0.017 rows=450.00 loops=1)
+                                Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=274
+Planning Time: 0.377 ms
+Execution Time: 0.299 ms
+=== R08 run 2 ===
+Limit  (cost=361.49..361.52 rows=10 width=20) (actual time=0.267..0.269 rows=10.00 loops=1)
+  Buffers: shared hit=184
+  ->  Sort  (cost=361.49..362.14 rows=260 width=20) (actual time=0.267..0.267 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=184
+        ->  HashAggregate  (cost=353.27..355.87 rows=260 width=20) (actual time=0.248..0.250 rows=22.00 loops=1)
+              Group Key: p.full_name
+              Batches: 1  Memory Usage: 48kB
+              Buffers: shared hit=181
+              ->  Hash Join  (cost=20.43..351.97 rows=260 width=12) (actual time=0.068..0.229 rows=255.00 loops=1)
+                    Hash Cond: (ut.captain_id = p.player_id)
+                    Buffers: shared hit=181
+                    ->  Bitmap Heap Scan on user_teams ut  (cost=6.31..337.16 rows=260 width=4) (actual time=0.026..0.168 rows=255.00 loops=1)
+                          Recheck Cond: (match_id = 207)
+                          Heap Blocks: exact=174
+                          Buffers: shared hit=177
+                          ->  Bitmap Index Scan on idx_user_teams_match_id  (cost=0.00..6.24 rows=260 width=0) (actual time=0.014..0.014 rows=255.00 loops=1)
+                                Index Cond: (match_id = 207)
+                                Index Searches: 1
+                                Buffers: shared hit=3
+                    ->  Hash  (cost=8.50..8.50 rows=450 width=16) (actual time=0.039..0.039 rows=450.00 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 30kB
+                          Buffers: shared hit=4
+                          ->  Seq Scan on players p  (cost=0.00..8.50 rows=450 width=16) (actual time=0.002..0.018 rows=450.00 loops=1)
+                                Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=274
+Planning Time: 0.368 ms
+Execution Time: 0.299 ms
+=== R08 run 3 ===
+Limit  (cost=361.49..361.52 rows=10 width=20) (actual time=0.254..0.255 rows=10.00 loops=1)
+  Buffers: shared hit=184
+  ->  Sort  (cost=361.49..362.14 rows=260 width=20) (actual time=0.254..0.254 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=184
+        ->  HashAggregate  (cost=353.27..355.87 rows=260 width=20) (actual time=0.242..0.244 rows=22.00 loops=1)
+              Group Key: p.full_name
+              Batches: 1  Memory Usage: 48kB
+              Buffers: shared hit=181
+              ->  Hash Join  (cost=20.43..351.97 rows=260 width=12) (actual time=0.066..0.223 rows=255.00 loops=1)
+                    Hash Cond: (ut.captain_id = p.player_id)
+                    Buffers: shared hit=181
+                    ->  Bitmap Heap Scan on user_teams ut  (cost=6.31..337.16 rows=260 width=4) (actual time=0.025..0.164 rows=255.00 loops=1)
+                          Recheck Cond: (match_id = 207)
+                          Heap Blocks: exact=174
+                          Buffers: shared hit=177
+                          ->  Bitmap Index Scan on idx_user_teams_match_id  (cost=0.00..6.24 rows=260 width=0) (actual time=0.014..0.014 rows=255.00 loops=1)
+                                Index Cond: (match_id = 207)
+                                Index Searches: 1
+                                Buffers: shared hit=3
+                    ->  Hash  (cost=8.50..8.50 rows=450 width=16) (actual time=0.038..0.038 rows=450.00 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 30kB
+                          Buffers: shared hit=4
+                          ->  Seq Scan on players p  (cost=0.00..8.50 rows=450 width=16) (actual time=0.002..0.017 rows=450.00 loops=1)
+                                Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=274
+Planning Time: 0.362 ms
+Execution Time: 0.287 ms
