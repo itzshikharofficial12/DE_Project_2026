@@ -1,0 +1,27 @@
+=== R05 run 1 ===
+Result Plan for R05 (actual time=0.172..0.293 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Only Scan using uq_contest_entries_contest_team on contest_entries | Index Scan using pk_user_teams on user_teams | Index Scan using pk_users on users) (actual time=0.034..0.172 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.345 ms
+=== R05 run 2 ===
+Result Plan for R05 (actual time=0.156..0.265 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Only Scan using uq_contest_entries_contest_team on contest_entries | Index Scan using pk_user_teams on user_teams | Index Scan using pk_users on users) (actual time=0.031..0.156 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.312 ms
+=== R05 run 3 ===
+Result Plan for R05 (actual time=0.151..0.258 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Only Scan using uq_contest_entries_contest_team on contest_entries | Index Scan using pk_user_teams on user_teams | Index Scan using pk_users on users) (actual time=0.030..0.151 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.303 ms

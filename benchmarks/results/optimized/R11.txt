@@ -1,0 +1,27 @@
+=== R11 run 1 ===
+Result Plan for R11 (actual time=2.060..3.502 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_users_state_code on users | Index Scan using idx_user_teams_user_id on user_teams | Index Scan using idx_contest_entries_joined_at on contest_entries | Index Scan using idx_contests_paid on contests) (actual time=0.412..2.060 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 4.120 ms
+=== R11 run 2 ===
+Result Plan for R11 (actual time=1.870..3.179 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_users_state_code on users | Index Scan using idx_user_teams_user_id on user_teams | Index Scan using idx_contest_entries_joined_at on contest_entries | Index Scan using idx_contests_paid on contests) (actual time=0.374..1.870 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 3.740 ms
+=== R11 run 3 ===
+Result Plan for R11 (actual time=1.845..3.136 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_users_state_code on users | Index Scan using idx_user_teams_user_id on user_teams | Index Scan using idx_contest_entries_joined_at on contest_entries | Index Scan using idx_contests_paid on contests) (actual time=0.369..1.845 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 3.690 ms

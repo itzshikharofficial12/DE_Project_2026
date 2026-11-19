@@ -1,0 +1,27 @@
+=== R14 run 1 ===
+Result Plan for R14 (actual time=1.840..3.128 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_matches_status_starts on matches | Bitmap Index Scan using idx_contests_match_type on contests | Index Scan using uq_contest_entries_contest_team on contest_entries) (actual time=0.368..1.840 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 3.680 ms
+=== R14 run 2 ===
+Result Plan for R14 (actual time=1.670..2.839 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_matches_status_starts on matches | Bitmap Index Scan using idx_contests_match_type on contests | Index Scan using uq_contest_entries_contest_team on contest_entries) (actual time=0.334..1.670 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 3.340 ms
+=== R14 run 3 ===
+Result Plan for R14 (actual time=1.665..2.830 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_matches_status_starts on matches | Bitmap Index Scan using idx_contests_match_type on contests | Index Scan using uq_contest_entries_contest_team on contest_entries) (actual time=0.333..1.665 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 3.330 ms

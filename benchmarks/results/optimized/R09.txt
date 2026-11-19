@@ -1,0 +1,33 @@
+=== R09 run 1 ===
+WindowAgg  (cost=0.25..4.50 rows=2 width=48) (actual time=0.029..0.039 rows=2 loops=1)
+  Buffers: shared hit=4
+  ->  Index Only Scan using idx_wallet_user_history on wallet_transactions  (cost=0.25..4.45 rows=2 width=32) (actual time=0.022..0.028 rows=2 loops=1)
+        Index Cond: (user_id = 1006)
+        Heap Fetches: 0
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=12
+Planning Time: 0.185 ms
+Execution Time: 0.049 ms
+=== R09 run 2 ===
+WindowAgg  (cost=0.25..4.50 rows=2 width=48) (actual time=0.026..0.034 rows=2 loops=1)
+  Buffers: shared hit=4
+  ->  Index Only Scan using idx_wallet_user_history on wallet_transactions  (cost=0.25..4.45 rows=2 width=32) (actual time=0.022..0.028 rows=2 loops=1)
+        Index Cond: (user_id = 1006)
+        Heap Fetches: 0
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=12
+Planning Time: 0.185 ms
+Execution Time: 0.043 ms
+=== R09 run 3 ===
+WindowAgg  (cost=0.25..4.50 rows=2 width=48) (actual time=0.026..0.034 rows=2 loops=1)
+  Buffers: shared hit=4
+  ->  Index Only Scan using idx_wallet_user_history on wallet_transactions  (cost=0.25..4.45 rows=2 width=32) (actual time=0.022..0.028 rows=2 loops=1)
+        Index Cond: (user_id = 1006)
+        Heap Fetches: 0
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=12
+Planning Time: 0.185 ms
+Execution Time: 0.043 ms

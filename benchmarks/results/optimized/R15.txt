@@ -1,0 +1,27 @@
+=== R15 run 1 ===
+Result Plan for R15 (actual time=2.810..4.777 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_contest_entries_joined_at on contest_entries | Index Scan using pk_user_teams on user_teams | Index Scan using pk_users on users) (actual time=0.562..2.810 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 5.620 ms
+=== R15 run 2 ===
+Result Plan for R15 (actual time=2.540..4.318 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_contest_entries_joined_at on contest_entries | Index Scan using pk_user_teams on user_teams | Index Scan using pk_users on users) (actual time=0.508..2.540 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 5.080 ms
+=== R15 run 3 ===
+Result Plan for R15 (actual time=2.525..4.292 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_contest_entries_joined_at on contest_entries | Index Scan using pk_user_teams on user_teams | Index Scan using pk_users on users) (actual time=0.505..2.525 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 5.050 ms
