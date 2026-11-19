@@ -1,0 +1,135 @@
+=== R25 run 1 ===
+Sort  (cost=1301.48..1302.99 rows=602 width=17) (actual time=5.920..5.922 rows=58.00 loops=1)
+  Sort Key: m.match_id, ce.entry_id
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=2661 read=114
+  ->  Hash Join  (cost=98.93..1273.69 rows=602 width=17) (actual time=0.755..5.900 rows=58.00 loops=1)
+        Hash Cond: (ce.contest_id = c.contest_id)
+        Buffers: shared hit=2658 read=114
+        ->  Nested Loop Anti Join  (cost=6.33..1179.51 rows=602 width=16) (actual time=0.484..5.617 rows=58.00 loops=1)
+              Buffers: shared hit=2629 read=114
+              ->  Nested Loop  (cost=6.04..976.70 rows=605 width=16) (actual time=0.170..5.261 rows=545.00 loops=1)
+                    Buffers: shared hit=1538 read=114
+                    ->  Nested Loop  (cost=5.75..756.12 rows=566 width=12) (actual time=0.167..0.823 rows=463.00 loops=1)
+                          Buffers: shared hit=377 read=3
+                          ->  Seq Scan on matches m  (cost=0.00..5.65 rows=3 width=4) (actual time=0.004..0.014 rows=3.00 loops=1)
+                                Filter: ((status)::text = 'ABANDONED'::text)
+                                Rows Removed by Filter: 209
+                                Buffers: shared hit=3
+                          ->  Bitmap Heap Scan on user_teams ut  (cost=5.75..248.27 rows=189 width=12) (actual time=0.168..0.261 rows=154.33 loops=3)
+                                Recheck Cond: (match_id = m.match_id)
+                                Heap Blocks: exact=371
+                                Buffers: shared hit=374 read=3
+                                ->  Bitmap Index Scan on idx_user_teams_match_id  (cost=0.00..5.71 rows=189 width=0) (actual time=0.160..0.160 rows=154.33 loops=3)
+                                      Index Cond: (match_id = m.match_id)
+                                      Index Searches: 3
+                                      Buffers: shared hit=3 read=3
+                    ->  Index Scan using idx_contest_entries_user_team_id on contest_entries ce  (cost=0.29..0.37 rows=2 width=12) (actual time=0.009..0.009 rows=1.18 loops=463)
+                          Index Cond: (user_team_id = ut.user_team_id)
+                          Index Searches: 463
+                          Buffers: shared hit=1161 read=111
+              ->  Index Only Scan using idx_wallet_transactions_ref_entry on wallet_transactions w  (cost=0.29..0.34 rows=1 width=4) (actual time=0.001..0.001 rows=0.89 loops=545)
+                    Index Cond: ((reference_entry_id = ce.entry_id) AND (txn_type = 'REFUND'::text))
+                    Heap Fetches: 0
+                    Index Searches: 545
+                    Buffers: shared hit=1091
+        ->  Hash  (cost=60.80..60.80 rows=2544 width=9) (actual time=0.265..0.266 rows=2544.00 loops=1)
+              Buckets: 4096  Batches: 1  Memory Usage: 142kB
+              Buffers: shared hit=29
+              ->  Seq Scan on contests c  (cost=0.00..60.80 rows=2544 width=9) (actual time=0.004..0.155 rows=2544.00 loops=1)
+                    Filter: (entry_fee > '0'::numeric)
+                    Buffers: shared hit=29
+Planning:
+  Buffers: shared hit=506 read=2
+Planning Time: 1.238 ms
+Execution Time: 5.950 ms
+=== R25 run 2 ===
+Sort  (cost=1301.48..1302.99 rows=602 width=17) (actual time=1.431..1.433 rows=58.00 loops=1)
+  Sort Key: m.match_id, ce.entry_id
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=2775
+  ->  Hash Join  (cost=98.93..1273.69 rows=602 width=17) (actual time=0.424..1.413 rows=58.00 loops=1)
+        Hash Cond: (ce.contest_id = c.contest_id)
+        Buffers: shared hit=2772
+        ->  Nested Loop Anti Join  (cost=6.33..1179.51 rows=602 width=16) (actual time=0.106..1.087 rows=58.00 loops=1)
+              Buffers: shared hit=2743
+              ->  Nested Loop  (cost=6.04..976.70 rows=605 width=16) (actual time=0.021..0.748 rows=545.00 loops=1)
+                    Buffers: shared hit=1652
+                    ->  Nested Loop  (cost=5.75..756.12 rows=566 width=12) (actual time=0.018..0.302 rows=463.00 loops=1)
+                          Buffers: shared hit=380
+                          ->  Seq Scan on matches m  (cost=0.00..5.65 rows=3 width=4) (actual time=0.004..0.012 rows=3.00 loops=1)
+                                Filter: ((status)::text = 'ABANDONED'::text)
+                                Rows Removed by Filter: 209
+                                Buffers: shared hit=3
+                          ->  Bitmap Heap Scan on user_teams ut  (cost=5.75..248.27 rows=189 width=12) (actual time=0.013..0.090 rows=154.33 loops=3)
+                                Recheck Cond: (match_id = m.match_id)
+                                Heap Blocks: exact=371
+                                Buffers: shared hit=377
+                                ->  Bitmap Index Scan on idx_user_teams_match_id  (cost=0.00..5.71 rows=189 width=0) (actual time=0.006..0.006 rows=154.33 loops=3)
+                                      Index Cond: (match_id = m.match_id)
+                                      Index Searches: 3
+                                      Buffers: shared hit=6
+                    ->  Index Scan using idx_contest_entries_user_team_id on contest_entries ce  (cost=0.29..0.37 rows=2 width=12) (actual time=0.001..0.001 rows=1.18 loops=463)
+                          Index Cond: (user_team_id = ut.user_team_id)
+                          Index Searches: 463
+                          Buffers: shared hit=1272
+              ->  Index Only Scan using idx_wallet_transactions_ref_entry on wallet_transactions w  (cost=0.29..0.34 rows=1 width=4) (actual time=0.001..0.001 rows=0.89 loops=545)
+                    Index Cond: ((reference_entry_id = ce.entry_id) AND (txn_type = 'REFUND'::text))
+                    Heap Fetches: 0
+                    Index Searches: 545
+                    Buffers: shared hit=1091
+        ->  Hash  (cost=60.80..60.80 rows=2544 width=9) (actual time=0.312..0.312 rows=2544.00 loops=1)
+              Buckets: 4096  Batches: 1  Memory Usage: 142kB
+              Buffers: shared hit=29
+              ->  Seq Scan on contests c  (cost=0.00..60.80 rows=2544 width=9) (actual time=0.005..0.192 rows=2544.00 loops=1)
+                    Filter: (entry_fee > '0'::numeric)
+                    Buffers: shared hit=29
+Planning:
+  Buffers: shared hit=508
+Planning Time: 1.112 ms
+Execution Time: 1.483 ms
+=== R25 run 3 ===
+Sort  (cost=1301.48..1302.99 rows=602 width=17) (actual time=1.443..1.445 rows=58.00 loops=1)
+  Sort Key: m.match_id, ce.entry_id
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=2775
+  ->  Hash Join  (cost=98.93..1273.69 rows=602 width=17) (actual time=0.370..1.426 rows=58.00 loops=1)
+        Hash Cond: (ce.contest_id = c.contest_id)
+        Buffers: shared hit=2772
+        ->  Nested Loop Anti Join  (cost=6.33..1179.51 rows=602 width=16) (actual time=0.068..1.116 rows=58.00 loops=1)
+              Buffers: shared hit=2743
+              ->  Nested Loop  (cost=6.04..976.70 rows=605 width=16) (actual time=0.021..0.800 rows=545.00 loops=1)
+                    Buffers: shared hit=1652
+                    ->  Nested Loop  (cost=5.75..756.12 rows=566 width=12) (actual time=0.018..0.321 rows=463.00 loops=1)
+                          Buffers: shared hit=380
+                          ->  Seq Scan on matches m  (cost=0.00..5.65 rows=3 width=4) (actual time=0.004..0.013 rows=3.00 loops=1)
+                                Filter: ((status)::text = 'ABANDONED'::text)
+                                Rows Removed by Filter: 209
+                                Buffers: shared hit=3
+                          ->  Bitmap Heap Scan on user_teams ut  (cost=5.75..248.27 rows=189 width=12) (actual time=0.014..0.095 rows=154.33 loops=3)
+                                Recheck Cond: (match_id = m.match_id)
+                                Heap Blocks: exact=371
+                                Buffers: shared hit=377
+                                ->  Bitmap Index Scan on idx_user_teams_match_id  (cost=0.00..5.71 rows=189 width=0) (actual time=0.007..0.007 rows=154.33 loops=3)
+                                      Index Cond: (match_id = m.match_id)
+                                      Index Searches: 3
+                                      Buffers: shared hit=6
+                    ->  Index Scan using idx_contest_entries_user_team_id on contest_entries ce  (cost=0.29..0.37 rows=2 width=12) (actual time=0.001..0.001 rows=1.18 loops=463)
+                          Index Cond: (user_team_id = ut.user_team_id)
+                          Index Searches: 463
+                          Buffers: shared hit=1272
+              ->  Index Only Scan using idx_wallet_transactions_ref_entry on wallet_transactions w  (cost=0.29..0.34 rows=1 width=4) (actual time=0.001..0.001 rows=0.89 loops=545)
+                    Index Cond: ((reference_entry_id = ce.entry_id) AND (txn_type = 'REFUND'::text))
+                    Heap Fetches: 0
+                    Index Searches: 545
+                    Buffers: shared hit=1091
+        ->  Hash  (cost=60.80..60.80 rows=2544 width=9) (actual time=0.295..0.295 rows=2544.00 loops=1)
+              Buckets: 4096  Batches: 1  Memory Usage: 142kB
+              Buffers: shared hit=29
+              ->  Seq Scan on contests c  (cost=0.00..60.80 rows=2544 width=9) (actual time=0.004..0.171 rows=2544.00 loops=1)
+                    Filter: (entry_fee > '0'::numeric)
+                    Buffers: shared hit=29
+Planning:
+  Buffers: shared hit=508
+Planning Time: 1.086 ms
+Execution Time: 1.476 ms

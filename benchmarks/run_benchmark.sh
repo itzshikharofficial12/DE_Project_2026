@@ -21,7 +21,7 @@ RUNS="${3:-3}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 if [[ -n "${4:-}" ]]; then
   WORKLOAD="$4"
-elif [[ ("$PHASE" == "optimized" || "$PHASE" == "after") && -f "$ROOT/sql/06_optimized_queries.sql" ]]; then
+elif [[ ("$PHASE" == "optimized" || "$PHASE" == "after" || "$PHASE" == "large") && -f "$ROOT/sql/06_optimized_queries.sql" ]]; then
   WORKLOAD="$ROOT/sql/06_optimized_queries.sql"
 else
   WORKLOAD="$ROOT/queries/workload_30.sql"

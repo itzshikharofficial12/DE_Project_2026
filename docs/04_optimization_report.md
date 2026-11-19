@@ -322,7 +322,37 @@ Seq Scan on contest_entries ce (cost=2575.29..3493.61 rows=21373 width=16) (actu
 ### Independent Verification & Correct Query Formulation
 In Phase 2 integrity audit check #5 (`sql/02_load_data.sql`), independent verification revealed that there are actually **192 paid contest entries** that lack a confirmed entry-fee debit.
 
-Furthermore, an entry can have wallet transactions referencing its `entry_id` for reasons other than an entry fee (specifically, `WINNINGS` credited to winners or `REFUND` debits). Therefore, an audit for missing entry-fee debits must specifically check for `w.txn_type = 'ENTRY_FEE' AND w.status = 'SUCCESS'`:
+#### Resolution of the 128 vs. 192 Discrepancy
+During earlier investigation, two different candidate numbers were observed in various draft checks: **128** versus **192**. We performed an exhaustive SQL forensic breakdown across `contest_entries` and `wallet_transactions` to determine the exact root cause:
+1. **The 128-Row Result (Flawed Anti-Join):**
+   If one simply rewrites `NOT IN` to `NOT EXISTS` checking whether *any* transaction references `ce.entry_id`:
+   ```sql
+   AND NOT EXISTS (
+       SELECT 1 FROM wallet_transactions w
+       WHERE w.reference_entry_id = ce.entry_id
+   )
+   ```
+   This query returns **128 rows**. Why? Because it treats *any* ledger record referencing that entry ID—even a credit—as evidence of an entry fee!
+2. **The 64-Row Difference (The Defect in the 128-Row Query):**
+   Querying the transactions referencing those $192 - 128 = 64$ entries reveals:
+   ```sql
+   SELECT w.txn_type, w.status, count(*)
+   FROM contest_entries ce
+   JOIN contests c ON c.contest_id = ce.contest_id
+   JOIN wallet_transactions w ON w.reference_entry_id = ce.entry_id
+   WHERE c.entry_fee > 0
+     AND NOT EXISTS (
+         SELECT 1 FROM wallet_transactions w2
+         WHERE w2.reference_entry_id = ce.entry_id AND w2.txn_type = 'ENTRY_FEE'
+     )
+   GROUP BY w.txn_type, w.status;
+   -- Returns:
+   -- WINNINGS | SUCCESS | 60
+   -- REFUND   | SUCCESS |  4
+   ```
+   Exactly **60 users won prize money** and **4 users received refunds for abandoned matches**, creating a `WINNINGS` or `REFUND` wallet transaction. However, **none of these 64 entries was ever debited the entry fee**!
+3. **The Business Definition & Verified 192 Result:**
+   The business audit objective stated in Problem P5 is: *"Finance audit: paid contest entries that have no entry-fee debit in the wallet"*. From a financial audit perspective, a user who won prize money or received an abandoned match refund without ever having their entry fee debited is a severe audit failure, not a paid entry! Thus, filtering specifically for `w.txn_type = 'ENTRY_FEE' AND w.status = 'SUCCESS'` is essential. The single, defensible, correct result is **192 unpaid contest entries**.
 
 ```sql
 -- Optimized R13 Query (Correct & Indexed)

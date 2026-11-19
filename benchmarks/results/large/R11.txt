@@ -1,0 +1,135 @@
+=== R11 run 1 ===
+Sort  (cost=3089.38..3102.78 rows=5359 width=32) (actual time=9.872..9.925 rows=3160.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 256kB
+  Buffers: shared hit=697 read=74
+  ->  HashAggregate  (cost=2703.86..2757.45 rows=5359 width=32) (actual time=9.523..9.679 rows=3160.00 loops=1)
+        Group Key: u.username
+        Batches: 1  Memory Usage: 409kB
+        Buffers: shared hit=694 read=74
+        ->  Hash Join  (cost=1662.35..2677.07 rows=5359 width=24) (actual time=6.934..9.042 rows=5239.00 loops=1)
+              Hash Cond: (ce.contest_id = c.contest_id)
+              Buffers: shared hit=694 read=74
+              ->  Hash Join  (cost=1569.75..2570.38 rows=5359 width=28) (actual time=6.702..8.492 rows=5239.00 loops=1)
+                    Hash Cond: (ce.user_team_id = ut.user_team_id)
+                    Buffers: shared hit=665 read=74
+                    ->  Seq Scan on contest_entries ce  (cost=0.00..862.33 rows=22590 width=8) (actual time=0.486..1.254 rows=22485.00 loops=1)
+                          Filter: (joined_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                          Rows Removed by Filter: 20261
+                          Buffers: shared hit=328
+                    ->  Hash  (cost=1451.20..1451.20 rows=9484 width=28) (actual time=6.207..6.208 rows=9437.00 loops=1)
+                          Buckets: 16384  Batches: 1  Memory Usage: 698kB
+                          Buffers: shared hit=337 read=74
+                          ->  Hash Join  (cost=613.50..1451.20 rows=9484 width=28) (actual time=2.867..5.648 rows=9437.00 loops=1)
+                                Hash Cond: (ut.user_id = u.user_id)
+                                Buffers: shared hit=337 read=74
+                                ->  Seq Scan on user_teams ut  (cost=0.00..732.75 rows=39975 width=8) (actual time=0.002..0.893 rows=39975.00 loops=1)
+                                      Buffers: shared hit=333
+                                ->  Hash  (cost=465.23..465.23 rows=11862 width=24) (actual time=2.853..2.854 rows=11713.00 loops=1)
+                                      Buckets: 16384  Batches: 1  Memory Usage: 775kB
+                                      Buffers: shared hit=4 read=74
+                                      ->  Index Only Scan using idx_users_state_code on users u  (cost=0.41..465.23 rows=11862 width=24) (actual time=0.474..2.191 rows=11713.00 loops=1)
+                                            Index Cond: (state_code = ANY ('{AS,OD,TG,AP}'::bpchar[]))
+                                            Heap Fetches: 0
+                                            Index Searches: 3
+                                            Buffers: shared hit=4 read=74
+              ->  Hash  (cost=60.80..60.80 rows=2544 width=4) (actual time=0.227..0.227 rows=2544.00 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 122kB
+                    Buffers: shared hit=29
+                    ->  Seq Scan on contests c  (cost=0.00..60.80 rows=2544 width=4) (actual time=0.004..0.145 rows=2544.00 loops=1)
+                          Filter: (entry_fee > '0'::numeric)
+                          Buffers: shared hit=29
+Planning:
+  Buffers: shared hit=481
+Planning Time: 1.040 ms
+Execution Time: 10.021 ms
+=== R11 run 2 ===
+Sort  (cost=3089.38..3102.78 rows=5359 width=32) (actual time=8.331..8.384 rows=3160.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 256kB
+  Buffers: shared hit=771
+  ->  HashAggregate  (cost=2703.86..2757.45 rows=5359 width=32) (actual time=7.931..8.108 rows=3160.00 loops=1)
+        Group Key: u.username
+        Batches: 1  Memory Usage: 409kB
+        Buffers: shared hit=768
+        ->  Hash Join  (cost=1662.35..2677.07 rows=5359 width=24) (actual time=5.357..7.453 rows=5239.00 loops=1)
+              Hash Cond: (ce.contest_id = c.contest_id)
+              Buffers: shared hit=768
+              ->  Hash Join  (cost=1569.75..2570.38 rows=5359 width=28) (actual time=5.121..6.900 rows=5239.00 loops=1)
+                    Hash Cond: (ce.user_team_id = ut.user_team_id)
+                    Buffers: shared hit=739
+                    ->  Seq Scan on contest_entries ce  (cost=0.00..862.33 rows=22590 width=8) (actual time=0.561..1.330 rows=22485.00 loops=1)
+                          Filter: (joined_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                          Rows Removed by Filter: 20261
+                          Buffers: shared hit=328
+                    ->  Hash  (cost=1451.20..1451.20 rows=9484 width=28) (actual time=4.549..4.549 rows=9437.00 loops=1)
+                          Buckets: 16384  Batches: 1  Memory Usage: 698kB
+                          Buffers: shared hit=411
+                          ->  Hash Join  (cost=613.50..1451.20 rows=9484 width=28) (actual time=1.226..3.989 rows=9437.00 loops=1)
+                                Hash Cond: (ut.user_id = u.user_id)
+                                Buffers: shared hit=411
+                                ->  Seq Scan on user_teams ut  (cost=0.00..732.75 rows=39975 width=8) (actual time=0.002..0.868 rows=39975.00 loops=1)
+                                      Buffers: shared hit=333
+                                ->  Hash  (cost=465.23..465.23 rows=11862 width=24) (actual time=1.210..1.210 rows=11713.00 loops=1)
+                                      Buckets: 16384  Batches: 1  Memory Usage: 775kB
+                                      Buffers: shared hit=78
+                                      ->  Index Only Scan using idx_users_state_code on users u  (cost=0.41..465.23 rows=11862 width=24) (actual time=0.011..0.544 rows=11713.00 loops=1)
+                                            Index Cond: (state_code = ANY ('{AS,OD,TG,AP}'::bpchar[]))
+                                            Heap Fetches: 0
+                                            Index Searches: 3
+                                            Buffers: shared hit=78
+              ->  Hash  (cost=60.80..60.80 rows=2544 width=4) (actual time=0.230..0.230 rows=2544.00 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 122kB
+                    Buffers: shared hit=29
+                    ->  Seq Scan on contests c  (cost=0.00..60.80 rows=2544 width=4) (actual time=0.004..0.151 rows=2544.00 loops=1)
+                          Filter: (entry_fee > '0'::numeric)
+                          Buffers: shared hit=29
+Planning:
+  Buffers: shared hit=481
+Planning Time: 0.869 ms
+Execution Time: 8.503 ms
+=== R11 run 3 ===
+Sort  (cost=3089.38..3102.78 rows=5359 width=32) (actual time=8.393..8.445 rows=3160.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 256kB
+  Buffers: shared hit=771
+  ->  HashAggregate  (cost=2703.86..2757.45 rows=5359 width=32) (actual time=8.053..8.203 rows=3160.00 loops=1)
+        Group Key: u.username
+        Batches: 1  Memory Usage: 409kB
+        Buffers: shared hit=768
+        ->  Hash Join  (cost=1662.35..2677.07 rows=5359 width=24) (actual time=5.531..7.584 rows=5239.00 loops=1)
+              Hash Cond: (ce.contest_id = c.contest_id)
+              Buffers: shared hit=768
+              ->  Hash Join  (cost=1569.75..2570.38 rows=5359 width=28) (actual time=5.298..7.040 rows=5239.00 loops=1)
+                    Hash Cond: (ce.user_team_id = ut.user_team_id)
+                    Buffers: shared hit=739
+                    ->  Seq Scan on contest_entries ce  (cost=0.00..862.33 rows=22590 width=8) (actual time=0.494..1.250 rows=22485.00 loops=1)
+                          Filter: (joined_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                          Rows Removed by Filter: 20261
+                          Buffers: shared hit=328
+                    ->  Hash  (cost=1451.20..1451.20 rows=9484 width=28) (actual time=4.768..4.768 rows=9437.00 loops=1)
+                          Buckets: 16384  Batches: 1  Memory Usage: 698kB
+                          Buffers: shared hit=411
+                          ->  Hash Join  (cost=613.50..1451.20 rows=9484 width=28) (actual time=1.179..4.159 rows=9437.00 loops=1)
+                                Hash Cond: (ut.user_id = u.user_id)
+                                Buffers: shared hit=411
+                                ->  Seq Scan on user_teams ut  (cost=0.00..732.75 rows=39975 width=8) (actual time=0.002..0.915 rows=39975.00 loops=1)
+                                      Buffers: shared hit=333
+                                ->  Hash  (cost=465.23..465.23 rows=11862 width=24) (actual time=1.166..1.166 rows=11713.00 loops=1)
+                                      Buckets: 16384  Batches: 1  Memory Usage: 775kB
+                                      Buffers: shared hit=78
+                                      ->  Index Only Scan using idx_users_state_code on users u  (cost=0.41..465.23 rows=11862 width=24) (actual time=0.010..0.525 rows=11713.00 loops=1)
+                                            Index Cond: (state_code = ANY ('{AS,OD,TG,AP}'::bpchar[]))
+                                            Heap Fetches: 0
+                                            Index Searches: 3
+                                            Buffers: shared hit=78
+              ->  Hash  (cost=60.80..60.80 rows=2544 width=4) (actual time=0.228..0.229 rows=2544.00 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 122kB
+                    Buffers: shared hit=29
+                    ->  Seq Scan on contests c  (cost=0.00..60.80 rows=2544 width=4) (actual time=0.003..0.147 rows=2544.00 loops=1)
+                          Filter: (entry_fee > '0'::numeric)
+                          Buffers: shared hit=29
+Planning:
+  Buffers: shared hit=481
+Planning Time: 0.892 ms
+Execution Time: 8.539 ms
