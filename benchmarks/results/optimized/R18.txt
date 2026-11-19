@@ -1,0 +1,78 @@
+=== R18 run 1 ===
+Sort  (cost=1546.53..1549.07 rows=1015 width=61) (actual time=4.229..4.244 rows=752.00 loops=1)
+  Sort Key: (sum(w.amount)) DESC
+  Sort Method: quicksort  Memory: 66kB
+  Buffers: shared hit=601 read=127
+  ->  HashAggregate  (cost=1450.16..1495.85 rows=1015 width=61) (actual time=3.848..4.105 rows=752.00 loops=1)
+        Group Key: u.username
+        Filter: (sum(w.amount) > '1000'::numeric)
+        Batches: 1  Memory Usage: 977kB
+        Rows Removed by Filter: 1230
+        Buffers: shared hit=598 read=127
+        ->  Merge Join  (cost=0.57..1434.93 rows=3046 width=34) (actual time=0.249..3.337 rows=3031.00 loops=1)
+              Merge Cond: (u.user_id = w.user_id)
+              Buffers: shared hit=598 read=127
+              ->  Index Only Scan using idx_users_unverified_kyc on users u  (cost=0.29..504.64 rows=12557 width=29) (actual time=0.112..1.439 rows=12437.00 loops=1)
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=1 read=78
+              ->  Index Only Scan using idx_wallet_transactions_winnings on wallet_transactions w  (cost=0.29..838.11 rows=12130 width=9) (actual time=0.134..1.211 rows=12302.00 loops=1)
+                    Heap Fetches: 876
+                    Index Searches: 1
+                    Buffers: shared hit=597 read=49
+Planning:
+  Buffers: shared hit=372 read=3
+Planning Time: 1.206 ms
+Execution Time: 4.300 ms
+=== R18 run 2 ===
+Sort  (cost=1546.53..1549.07 rows=1015 width=61) (actual time=2.835..2.849 rows=752.00 loops=1)
+  Sort Key: (sum(w.amount)) DESC
+  Sort Method: quicksort  Memory: 66kB
+  Buffers: shared hit=728
+  ->  HashAggregate  (cost=1450.16..1495.85 rows=1015 width=61) (actual time=2.455..2.700 rows=752.00 loops=1)
+        Group Key: u.username
+        Filter: (sum(w.amount) > '1000'::numeric)
+        Batches: 1  Memory Usage: 977kB
+        Rows Removed by Filter: 1230
+        Buffers: shared hit=725
+        ->  Merge Join  (cost=0.57..1434.93 rows=3046 width=34) (actual time=0.013..1.914 rows=3031.00 loops=1)
+              Merge Cond: (u.user_id = w.user_id)
+              Buffers: shared hit=725
+              ->  Index Only Scan using idx_users_unverified_kyc on users u  (cost=0.29..504.64 rows=12557 width=29) (actual time=0.004..0.536 rows=12437.00 loops=1)
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=79
+              ->  Index Only Scan using idx_wallet_transactions_winnings on wallet_transactions w  (cost=0.29..838.11 rows=12130 width=9) (actual time=0.007..0.599 rows=12302.00 loops=1)
+                    Heap Fetches: 876
+                    Index Searches: 1
+                    Buffers: shared hit=646
+Planning:
+  Buffers: shared hit=373
+Planning Time: 0.694 ms
+Execution Time: 2.902 ms
+=== R18 run 3 ===
+Sort  (cost=1546.53..1549.07 rows=1015 width=61) (actual time=2.350..2.365 rows=752.00 loops=1)
+  Sort Key: (sum(w.amount)) DESC
+  Sort Method: quicksort  Memory: 66kB
+  Buffers: shared hit=728
+  ->  HashAggregate  (cost=1450.16..1495.85 rows=1015 width=61) (actual time=2.030..2.232 rows=752.00 loops=1)
+        Group Key: u.username
+        Filter: (sum(w.amount) > '1000'::numeric)
+        Batches: 1  Memory Usage: 977kB
+        Rows Removed by Filter: 1230
+        Buffers: shared hit=725
+        ->  Merge Join  (cost=0.57..1434.93 rows=3046 width=34) (actual time=0.013..1.614 rows=3031.00 loops=1)
+              Merge Cond: (u.user_id = w.user_id)
+              Buffers: shared hit=725
+              ->  Index Only Scan using idx_users_unverified_kyc on users u  (cost=0.29..504.64 rows=12557 width=29) (actual time=0.003..0.450 rows=12437.00 loops=1)
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=79
+              ->  Index Only Scan using idx_wallet_transactions_winnings on wallet_transactions w  (cost=0.29..838.11 rows=12130 width=9) (actual time=0.007..0.528 rows=12302.00 loops=1)
+                    Heap Fetches: 876
+                    Index Searches: 1
+                    Buffers: shared hit=646
+Planning:
+  Buffers: shared hit=373
+Planning Time: 0.712 ms
+Execution Time: 2.417 ms
