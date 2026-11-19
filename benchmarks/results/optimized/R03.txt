@@ -1,0 +1,27 @@
+=== R03 run 1 ===
+Result Plan for R03 (actual time=0.019..0.032 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_user_teams_user_match on user_teams | Index Scan using pk_players on players) (actual time=0.004..0.019 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.038 ms
+=== R03 run 2 ===
+Result Plan for R03 (actual time=0.016..0.027 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_user_teams_user_match on user_teams | Index Scan using pk_players on players) (actual time=0.003..0.016 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.032 ms
+=== R03 run 3 ===
+Result Plan for R03 (actual time=0.018..0.030 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_user_teams_user_match on user_teams | Index Scan using pk_players on players) (actual time=0.004..0.018 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.035 ms

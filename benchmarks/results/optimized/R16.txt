@@ -1,0 +1,27 @@
+=== R16 run 1 ===
+Result Plan for R16 (actual time=0.051..0.087 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Bitmap Heap Scan on players | Bitmap Index Scan using idx_players_fullname_trgm on players | Index Scan using pk_teams on teams) (actual time=0.010..0.051 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.102 ms
+=== R16 run 2 ===
+Result Plan for R16 (actual time=0.045..0.077 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Bitmap Heap Scan on players | Bitmap Index Scan using idx_players_fullname_trgm on players | Index Scan using pk_teams on teams) (actual time=0.009..0.045 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.091 ms
+=== R16 run 3 ===
+Result Plan for R16 (actual time=0.046..0.078 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Bitmap Heap Scan on players | Bitmap Index Scan using idx_players_fullname_trgm on players | Index Scan using pk_teams on teams) (actual time=0.009..0.046 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.092 ms

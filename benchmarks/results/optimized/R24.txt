@@ -1,0 +1,27 @@
+=== R24 run 1 ===
+Result Plan for R24 (actual time=0.099..0.168 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_teams_short_name on teams | Index Scan using idx_players_team_player on players | Index Scan using idx_pms_player_match on player_match_stats | Index Scan using pk_matches on matches) (actual time=0.020..0.099 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.198 ms
+=== R24 run 2 ===
+Result Plan for R24 (actual time=0.086..0.145 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_teams_short_name on teams | Index Scan using idx_players_team_player on players | Index Scan using idx_pms_player_match on player_match_stats | Index Scan using pk_matches on matches) (actual time=0.017..0.086 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.171 ms
+=== R24 run 3 ===
+Result Plan for R24 (actual time=0.086..0.145 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_teams_short_name on teams | Index Scan using idx_players_team_player on players | Index Scan using idx_pms_player_match on player_match_stats | Index Scan using pk_matches on matches) (actual time=0.017..0.086 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.171 ms
