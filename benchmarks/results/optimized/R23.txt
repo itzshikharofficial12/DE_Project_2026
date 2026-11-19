@@ -1,0 +1,27 @@
+=== R23 run 1 ===
+Index Only Scan using idx_users_phone on users  (cost=0.25..4.25 rows=1 width=32) (actual time=0.018..0.020 rows=1 loops=1)
+  Index Cond: (phone = '7300001042'::text)
+  Heap Fetches: 0
+  Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.085 ms
+Execution Time: 0.026 ms
+=== R23 run 2 ===
+Index Only Scan using idx_users_phone on users  (cost=0.25..4.25 rows=1 width=32) (actual time=0.018..0.020 rows=1 loops=1)
+  Index Cond: (phone = '7300001042'::text)
+  Heap Fetches: 0
+  Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.085 ms
+Execution Time: 0.023 ms
+=== R23 run 3 ===
+Index Only Scan using idx_users_phone on users  (cost=0.25..4.25 rows=1 width=32) (actual time=0.018..0.020 rows=1 loops=1)
+  Index Cond: (phone = '7300001042'::text)
+  Heap Fetches: 0
+  Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=6
+Planning Time: 0.085 ms
+Execution Time: 0.023 ms

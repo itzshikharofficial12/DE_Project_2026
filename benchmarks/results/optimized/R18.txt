@@ -1,0 +1,27 @@
+=== R18 run 1 ===
+Result Plan for R18 (actual time=0.675..1.147 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_wallet_winnings_user on wallet_transactions | Index Scan using idx_users_kyc_unverified on users) (actual time=0.135..0.675 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 1.350 ms
+=== R18 run 2 ===
+Result Plan for R18 (actual time=0.590..1.003 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_wallet_winnings_user on wallet_transactions | Index Scan using idx_users_kyc_unverified on users) (actual time=0.118..0.590 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 1.180 ms
+=== R18 run 3 ===
+Result Plan for R18 (actual time=0.595..1.011 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_wallet_winnings_user on wallet_transactions | Index Scan using idx_users_kyc_unverified on users) (actual time=0.119..0.595 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 1.190 ms

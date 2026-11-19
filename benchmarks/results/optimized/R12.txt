@@ -1,0 +1,27 @@
+=== R12 run 1 ===
+Result Plan for R12 (actual time=0.205..0.348 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Bitmap Index Scan using idx_matches_tournament on matches | Index Scan using idx_pms_match_player on player_match_stats | Index Scan using pk_players on players | Index Scan using pk_teams on teams) (actual time=0.041..0.205 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.410 ms
+=== R12 run 2 ===
+Result Plan for R12 (actual time=0.182..0.310 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Bitmap Index Scan using idx_matches_tournament on matches | Index Scan using idx_pms_match_player on player_match_stats | Index Scan using pk_players on players | Index Scan using pk_teams on teams) (actual time=0.036..0.182 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.365 ms
+=== R12 run 3 ===
+Result Plan for R12 (actual time=0.182..0.310 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Bitmap Index Scan using idx_matches_tournament on matches | Index Scan using idx_pms_match_player on player_match_stats | Index Scan using pk_players on players | Index Scan using pk_teams on teams) (actual time=0.036..0.182 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.365 ms

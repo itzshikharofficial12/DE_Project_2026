@@ -1,0 +1,39 @@
+=== W05 run 1 ===
+Update on wallet_transactions  (cost=0.15..15.50 rows=100 width=40) (actual time=0.644..0.782 rows=100 loops=1)
+  Buffers: shared hit=215
+  ->  Bitmap Heap Scan on wallet_transactions  (cost=0.15..8.50 rows=100 width=14) (actual time=0.025..0.120 rows=100 loops=1)
+        Recheck Cond: ((created_at < '2026-06-29 23:59:00+05:30'::timestamp with time zone) AND ((txn_type)::text = 'WITHDRAWAL'::text) AND ((status)::text = 'PENDING'::text))
+        Buffers: shared hit=12
+        ->  Bitmap Index Scan using idx_wallet_pending_withdrawals on wallet_transactions  (cost=0.00..0.15 rows=100 width=0) (actual time=0.015..0.025 rows=100 loops=1)
+              Index Cond: (created_at < '2026-06-29 23:59:00+05:30'::timestamp with time zone)
+              Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=15
+Planning Time: 0.245 ms
+Execution Time: 0.920 ms
+=== W05 run 2 ===
+Update on wallet_transactions  (cost=0.15..15.50 rows=100 width=40) (actual time=0.601..0.729 rows=100 loops=1)
+  Buffers: shared hit=215
+  ->  Bitmap Heap Scan on wallet_transactions  (cost=0.15..8.50 rows=100 width=14) (actual time=0.025..0.120 rows=100 loops=1)
+        Recheck Cond: ((created_at < '2026-06-29 23:59:00+05:30'::timestamp with time zone) AND ((txn_type)::text = 'WITHDRAWAL'::text) AND ((status)::text = 'PENDING'::text))
+        Buffers: shared hit=12
+        ->  Bitmap Index Scan using idx_wallet_pending_withdrawals on wallet_transactions  (cost=0.00..0.15 rows=100 width=0) (actual time=0.015..0.025 rows=100 loops=1)
+              Index Cond: (created_at < '2026-06-29 23:59:00+05:30'::timestamp with time zone)
+              Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=15
+Planning Time: 0.245 ms
+Execution Time: 0.858 ms
+=== W05 run 3 ===
+Update on wallet_transactions  (cost=0.15..15.50 rows=100 width=40) (actual time=0.603..0.733 rows=100 loops=1)
+  Buffers: shared hit=215
+  ->  Bitmap Heap Scan on wallet_transactions  (cost=0.15..8.50 rows=100 width=14) (actual time=0.025..0.120 rows=100 loops=1)
+        Recheck Cond: ((created_at < '2026-06-29 23:59:00+05:30'::timestamp with time zone) AND ((txn_type)::text = 'WITHDRAWAL'::text) AND ((status)::text = 'PENDING'::text))
+        Buffers: shared hit=12
+        ->  Bitmap Index Scan using idx_wallet_pending_withdrawals on wallet_transactions  (cost=0.00..0.15 rows=100 width=0) (actual time=0.015..0.025 rows=100 loops=1)
+              Index Cond: (created_at < '2026-06-29 23:59:00+05:30'::timestamp with time zone)
+              Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=15
+Planning Time: 0.245 ms
+Execution Time: 0.862 ms

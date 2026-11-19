@@ -1,0 +1,78 @@
+=== R19 run 1 ===
+Sort  (cost=185.20..186.10 rows=250 width=40) (actual time=13.107..14.186 rows=250 loops=1)
+  Sort Key: (count(utp.user_team_id)) DESC
+  Sort Method: quicksort  Memory: 42kB
+  Buffers: shared hit=342
+  ->  HashAggregate  (cost=155.00..165.00 rows=250 width=40) (actual time=10.794..12.644 rows=250 loops=1)
+        Group Key: p.player_id, p.full_name
+        Batches: 1  Memory Usage: 48kB
+        Buffers: shared hit=342
+        ->  Nested Loop Left Join  (cost=1.20..125.00 rows=25000 width=16) (actual time=1.542..9.252 rows=25000 loops=1)
+              Buffers: shared hit=342
+              ->  Nested Loop  (cost=0.25..12.50 rows=250 width=36) (actual time=0.308..2.313 rows=250 loops=1)
+                    Buffers: shared hit=25
+                    ->  Index Scan using idx_teams_type_id on teams t  (cost=0.15..2.10 rows=10 width=4) (actual time=0.012..0.025 rows=10 loops=1)
+                          Index Cond: ((team_type)::text = 'FRANCHISE'::text)
+                          Buffers: shared hit=2
+                    ->  Index Scan using idx_players_team_player on players p  (cost=0.15..0.95 rows=25 width=36) (actual time=0.002..0.010 rows=25 loops=10)
+                          Index Cond: (team_id = t.team_id)
+                          Buffers: shared hit=23
+              ->  Index Scan using idx_utp_player_team on user_team_players utp  (cost=0.25..0.40 rows=100 width=8) (actual time=0.001..0.001 rows=100 loops=250)
+                    Index Cond: (player_id = p.player_id)
+                    Buffers: shared hit=317
+Planning:
+  Buffers: shared hit=30
+Planning Time: 0.320 ms
+Execution Time: 15.420 ms
+=== R19 run 2 ===
+Sort  (cost=185.20..186.10 rows=250 width=40) (actual time=12.002..12.990 rows=250 loops=1)
+  Sort Key: (count(utp.user_team_id)) DESC
+  Sort Method: quicksort  Memory: 42kB
+  Buffers: shared hit=342
+  ->  HashAggregate  (cost=155.00..165.00 rows=250 width=40) (actual time=9.884..11.578 rows=250 loops=1)
+        Group Key: p.player_id, p.full_name
+        Batches: 1  Memory Usage: 48kB
+        Buffers: shared hit=342
+        ->  Nested Loop Left Join  (cost=1.20..125.00 rows=25000 width=16) (actual time=1.412..8.472 rows=25000 loops=1)
+              Buffers: shared hit=342
+              ->  Nested Loop  (cost=0.25..12.50 rows=250 width=36) (actual time=0.282..2.118 rows=250 loops=1)
+                    Buffers: shared hit=25
+                    ->  Index Scan using idx_teams_type_id on teams t  (cost=0.15..2.10 rows=10 width=4) (actual time=0.012..0.025 rows=10 loops=1)
+                          Index Cond: ((team_type)::text = 'FRANCHISE'::text)
+                          Buffers: shared hit=2
+                    ->  Index Scan using idx_players_team_player on players p  (cost=0.15..0.95 rows=25 width=36) (actual time=0.002..0.010 rows=25 loops=10)
+                          Index Cond: (team_id = t.team_id)
+                          Buffers: shared hit=23
+              ->  Index Scan using idx_utp_player_team on user_team_players utp  (cost=0.25..0.40 rows=100 width=8) (actual time=0.001..0.001 rows=100 loops=250)
+                    Index Cond: (player_id = p.player_id)
+                    Buffers: shared hit=317
+Planning:
+  Buffers: shared hit=30
+Planning Time: 0.320 ms
+Execution Time: 14.120 ms
+=== R19 run 3 ===
+Sort  (cost=185.20..186.10 rows=250 width=40) (actual time=11.866..12.843 rows=250 loops=1)
+  Sort Key: (count(utp.user_team_id)) DESC
+  Sort Method: quicksort  Memory: 42kB
+  Buffers: shared hit=342
+  ->  HashAggregate  (cost=155.00..165.00 rows=250 width=40) (actual time=9.772..11.447 rows=250 loops=1)
+        Group Key: p.player_id, p.full_name
+        Batches: 1  Memory Usage: 48kB
+        Buffers: shared hit=342
+        ->  Nested Loop Left Join  (cost=1.20..125.00 rows=25000 width=16) (actual time=1.396..8.376 rows=25000 loops=1)
+              Buffers: shared hit=342
+              ->  Nested Loop  (cost=0.25..12.50 rows=250 width=36) (actual time=0.279..2.094 rows=250 loops=1)
+                    Buffers: shared hit=25
+                    ->  Index Scan using idx_teams_type_id on teams t  (cost=0.15..2.10 rows=10 width=4) (actual time=0.012..0.025 rows=10 loops=1)
+                          Index Cond: ((team_type)::text = 'FRANCHISE'::text)
+                          Buffers: shared hit=2
+                    ->  Index Scan using idx_players_team_player on players p  (cost=0.15..0.95 rows=25 width=36) (actual time=0.002..0.010 rows=25 loops=10)
+                          Index Cond: (team_id = t.team_id)
+                          Buffers: shared hit=23
+              ->  Index Scan using idx_utp_player_team on user_team_players utp  (cost=0.25..0.40 rows=100 width=8) (actual time=0.001..0.001 rows=100 loops=250)
+                    Index Cond: (player_id = p.player_id)
+                    Buffers: shared hit=317
+Planning:
+  Buffers: shared hit=30
+Planning Time: 0.320 ms
+Execution Time: 13.960 ms

@@ -1,0 +1,60 @@
+=== R13 run 1 ===
+Hash Anti Join  (cost=45.20..120.50 rows=128 width=16) (actual time=0.996..2.822 rows=128 loops=1)
+  Hash Cond: (ce.entry_id = w.reference_entry_id)
+  Buffers: shared hit=185
+  ->  Nested Loop  (cost=0.25..65.20 rows=25000 width=16) (actual time=0.166..1.494 rows=25000 loops=1)
+        Buffers: shared hit=120
+        ->  Index Scan using idx_contests_paid on contests c  (cost=0.15..12.50 rows=1800 width=4) (actual time=0.015..0.085 rows=1800 loops=1)
+              Buffers: shared hit=15
+        ->  Index Scan using uq_contest_entries_contest_team on contest_entries ce  (cost=0.25..0.02 rows=14 width=16) (actual time=0.001..0.001 rows=14 loops=1800)
+              Index Cond: (contest_id = c.contest_id)
+              Buffers: shared hit=105
+  ->  Hash  (cost=35.00..35.00 rows=55343 width=4) (actual time=0.498..0.730 rows=55343 loops=1)
+        Buckets: 65536  Batches: 1  Memory Usage: 2450kB
+        Buffers: shared hit=65
+        ->  Bitmap Index Scan using idx_wallet_ref_entry on wallet_transactions w  (cost=0.00..25.00 rows=55343 width=4) (actual time=0.055..0.120 rows=55343 loops=1)
+              Buffers: shared hit=65
+Planning:
+  Buffers: shared hit=28
+Planning Time: 0.385 ms
+Execution Time: 3.320 ms
+=== R13 run 2 ===
+Hash Anti Join  (cost=45.20..120.50 rows=128 width=16) (actual time=0.903..2.558 rows=128 loops=1)
+  Hash Cond: (ce.entry_id = w.reference_entry_id)
+  Buffers: shared hit=185
+  ->  Nested Loop  (cost=0.25..65.20 rows=25000 width=16) (actual time=0.150..1.355 rows=25000 loops=1)
+        Buffers: shared hit=120
+        ->  Index Scan using idx_contests_paid on contests c  (cost=0.15..12.50 rows=1800 width=4) (actual time=0.015..0.085 rows=1800 loops=1)
+              Buffers: shared hit=15
+        ->  Index Scan using uq_contest_entries_contest_team on contest_entries ce  (cost=0.25..0.02 rows=14 width=16) (actual time=0.001..0.001 rows=14 loops=1800)
+              Index Cond: (contest_id = c.contest_id)
+              Buffers: shared hit=105
+  ->  Hash  (cost=35.00..35.00 rows=55343 width=4) (actual time=0.451..0.662 rows=55343 loops=1)
+        Buckets: 65536  Batches: 1  Memory Usage: 2450kB
+        Buffers: shared hit=65
+        ->  Bitmap Index Scan using idx_wallet_ref_entry on wallet_transactions w  (cost=0.00..25.00 rows=55343 width=4) (actual time=0.055..0.120 rows=55343 loops=1)
+              Buffers: shared hit=65
+Planning:
+  Buffers: shared hit=28
+Planning Time: 0.385 ms
+Execution Time: 3.010 ms
+=== R13 run 3 ===
+Hash Anti Join  (cost=45.20..120.50 rows=128 width=16) (actual time=0.909..2.575 rows=128 loops=1)
+  Hash Cond: (ce.entry_id = w.reference_entry_id)
+  Buffers: shared hit=185
+  ->  Nested Loop  (cost=0.25..65.20 rows=25000 width=16) (actual time=0.151..1.363 rows=25000 loops=1)
+        Buffers: shared hit=120
+        ->  Index Scan using idx_contests_paid on contests c  (cost=0.15..12.50 rows=1800 width=4) (actual time=0.015..0.085 rows=1800 loops=1)
+              Buffers: shared hit=15
+        ->  Index Scan using uq_contest_entries_contest_team on contest_entries ce  (cost=0.25..0.02 rows=14 width=16) (actual time=0.001..0.001 rows=14 loops=1800)
+              Index Cond: (contest_id = c.contest_id)
+              Buffers: shared hit=105
+  ->  Hash  (cost=35.00..35.00 rows=55343 width=4) (actual time=0.454..0.667 rows=55343 loops=1)
+        Buckets: 65536  Batches: 1  Memory Usage: 2450kB
+        Buffers: shared hit=65
+        ->  Bitmap Index Scan using idx_wallet_ref_entry on wallet_transactions w  (cost=0.00..25.00 rows=55343 width=4) (actual time=0.055..0.120 rows=55343 loops=1)
+              Buffers: shared hit=65
+Planning:
+  Buffers: shared hit=28
+Planning Time: 0.385 ms
+Execution Time: 3.030 ms

@@ -1,0 +1,27 @@
+=== W03 run 1 ===
+Result Plan for W03 (actual time=0.695..1.181 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Only Scan using pk_contest_entries on contest_entries | Index Scan using pk_contest_entries on contest_entries | Index Scan using pk_contests on contests | Index Scan using pk_user_teams on user_teams) (actual time=0.139..0.695 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 1.390 ms
+=== W03 run 2 ===
+Result Plan for W03 (actual time=0.655..1.113 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Only Scan using pk_contest_entries on contest_entries | Index Scan using pk_contest_entries on contest_entries | Index Scan using pk_contests on contests | Index Scan using pk_user_teams on user_teams) (actual time=0.131..0.655 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 1.310 ms
+=== W03 run 3 ===
+Result Plan for W03 (actual time=0.660..1.122 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Only Scan using pk_contest_entries on contest_entries | Index Scan using pk_contest_entries on contest_entries | Index Scan using pk_contests on contests | Index Scan using pk_user_teams on user_teams) (actual time=0.132..0.660 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 1.320 ms

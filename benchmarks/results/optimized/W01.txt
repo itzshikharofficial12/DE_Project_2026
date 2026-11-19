@@ -1,0 +1,27 @@
+=== W01 run 1 ===
+Result Plan for W01 (actual time=0.426..0.724 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using pk_matches on matches) (actual time=0.085..0.426 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.852 ms
+=== W01 run 2 ===
+Result Plan for W01 (actual time=0.399..0.678 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using pk_matches on matches) (actual time=0.080..0.399 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.798 ms
+=== W01 run 3 ===
+Result Plan for W01 (actual time=0.405..0.689 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using pk_matches on matches) (actual time=0.081..0.405 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 0.810 ms

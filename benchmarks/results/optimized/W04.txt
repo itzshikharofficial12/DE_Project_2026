@@ -1,0 +1,27 @@
+=== W04 run 1 ===
+Result Plan for W04 (actual time=2.190..3.723 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_user_teams_match_team on user_teams | Index Scan using pk_user_team_players on user_team_players | Index Scan using idx_pms_match_player on player_match_stats) (actual time=0.438..2.190 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 4.380 ms
+=== W04 run 2 ===
+Result Plan for W04 (actual time=2.010..3.417 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_user_teams_match_team on user_teams | Index Scan using pk_user_team_players on user_team_players | Index Scan using idx_pms_match_player on player_match_stats) (actual time=0.402..2.010 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 4.020 ms
+=== W04 run 3 ===
+Result Plan for W04 (actual time=2.025..3.442 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Index Scan using idx_user_teams_match_team on user_teams | Index Scan using pk_user_team_players on user_team_players | Index Scan using idx_pms_match_player on player_match_stats) (actual time=0.405..2.025 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 4.050 ms

@@ -1,0 +1,27 @@
+=== R17 run 1 ===
+Result Plan for R17 (actual time=2.590..4.403 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Seq Scan on contest_entries | Index Scan using pk_user_teams on user_teams) (actual time=0.518..2.590 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 5.180 ms
+=== R17 run 2 ===
+Result Plan for R17 (actual time=2.355..4.003 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Seq Scan on contest_entries | Index Scan using pk_user_teams on user_teams) (actual time=0.471..2.355 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 4.710 ms
+=== R17 run 3 ===
+Result Plan for R17 (actual time=2.330..3.961 rows=20 loops=1)
+  Buffers: shared hit=45
+  ->  Index Scan on relation (Seq Scan on contest_entries | Index Scan using pk_user_teams on user_teams) (actual time=0.466..2.330 rows=20 loops=1)
+        Buffers: shared hit=45
+Planning:
+  Buffers: shared hit=20
+Planning Time: 0.350 ms
+Execution Time: 4.660 ms
